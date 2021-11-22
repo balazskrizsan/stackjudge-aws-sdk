@@ -18,17 +18,20 @@ dependencies {
 openApiGenerate {
     skipValidateSpec.set(true)
     verbose.set(false)
-    generatorName.set("kotlin")
+    generatorName.set("spring")
     inputSpec.set("$projectDir/docs/openapi/api.yml")
-    outputDir.set("$projectDir/build_sdk")
+    outputDir.set("$projectDir/build")
+    invokerPackage.set("com.kbalazsworks.stackjudge_aws_sdk")
+    apiPackage.set("com.kbalazsworks.stackjudge_aws_sdk.api")
+    modelPackage.set("com.kbalazsworks.stackjudge_aws_sdk.model")
 }
 
 group = "com.kbalazsworks"
 version = "1.0-SNAPSHOT"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 allOpen {
@@ -38,6 +41,12 @@ allOpen {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
     kotlinOptions.javaParameters = true
+}
+
+sourceSets {
+    main {
+        java.srcDir("$projectDir/build/src/main/java")
+    }
 }
